@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is the Tax Page</title>
+</head>
+<body>
+    <h1>Tax Page</h1>
+    <form method = "POST">
+        {% csrf_token %}
+        <label for="annual">Enter your annual income</label>
+        <input type="text" id="amount" name="amount" required>
+        <br><button type="submit">Submit</button>
+    </form>
+    {% if tax is not None  %}
+        {% if "error" in tax %}
+            <h2>Sorry you did not enter a number, so I cannot calculate tax</h2>
+        {% else %}
+            <h2>The tax to pay: {{tax}}</h2>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
