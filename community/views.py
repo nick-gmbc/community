@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from .models import Constituency
+from .models import Party
 import random
 
+# Database link
+# postgresql://neondb_owner:npg_UJCHMr56yoRt@ep-raspy-water-ag4nnh5l.c-2.eu-central-1.aws.neon.tech/tag_ankle_serve_239654
 
 def index(request):
     thought_number = random.randint(1, 5)
@@ -46,3 +50,13 @@ def taxpage(request):
             tax = "error"
     return render(request, "taxpage.html", {"tax": tax})
 # Create your views here.
+
+
+def findyourMP(request):
+    data_to_return = None
+    if request.method == "POST":
+        constituency_name = request.POST.get("wanted")
+        data_to_return = Constituency.objects.filter(constituency_name__icontains=constituency_name)  # or whatever filter
+    return render(request, "mpfind.html", {"data": data_to_return})
+
+

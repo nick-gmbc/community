@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find your MP</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="/index/">Home Page</a> | <a href="/taxpage/">Tax Page</a> | <a href="/mpfind/">Find Your MP</a> 
+    </nav>
+    <h1>Find Your MP</h1>
+    <form method = "POST">
+        {% csrf_token %}
+        <label for="wanted">Enter all or part of the constitunency name</label>
+        <input type="text" id="wanted" name="wanted" required>
+        <br><button type="submit">Submit</button>
+    </form>
+    {% if data is not None  %}
+        <ul>
+        {% for item in data %}
+            <li>
+                <strong>{{item.constituency_MP }}</strong><br>
+                {{item.constituency_name}}<br>
+                {{item.party_holding.party_name}} led by {{item.party_holding.party_leader}} <br>
+            </li>
+        {% empty %}
+            <li>No match found.</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

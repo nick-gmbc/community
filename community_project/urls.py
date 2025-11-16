@@ -21,5 +21,7 @@ from community import views as community_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', community_views.index, name='index'),
-    path('taxpage/', community_views.taxpage, name='taxpage')
+    path('index/', community_views.index, name='index'),
+    path('taxpage/', community_views.taxpage, name='taxpage'),
+    path('mpfind/', community_views.findyourMP, name='findyourMP')
 ]
